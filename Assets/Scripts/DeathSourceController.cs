@@ -10,7 +10,6 @@ public class DeathSourceController : Spawner
     [SerializeField] private float deathRadius = 3;
     [SerializeField] private ParticleSystem fieldPS;
     [SerializeField] private ParticleSystem boundsPS;
-    [SerializeField] private float boundsPSRotSpeed = 20f;
     [SerializeField] private TorchController[] torches;
     [SerializeField] private CinemachineVirtualCamera vCam;
 
@@ -20,14 +19,9 @@ public class DeathSourceController : Spawner
     {
         GameManager.Instance.RegisterDeathSource(this);
         col = GetComponent<SphereCollider>();
-        UpdateDeathRadius();
+        // UpdateDeathRadius();
         //Debug
         StartCoroutine(SpawnUnits());
-    }
-
-    private void Update()
-    {
-        boundsPS.transform.Rotate(Vector3.forward * (Time.deltaTime * boundsPSRotSpeed));
     }
 
     public void IgniteTorch(int torchID)
@@ -51,7 +45,7 @@ public class DeathSourceController : Spawner
         vCam.Priority = 0;
     }
 
-    private void ShrinkDeathRadius(float shrinkAmount = -0.5f)
+    private void ShrinkDeathRadius(float shrinkAmount = 0.5f)
     {
         deathRadius -= shrinkAmount;
         UpdateDeathRadius();
