@@ -18,6 +18,7 @@ public class AudioController : MonoBehaviour
     
     int paperFlipIndex = 0;
     int deathIndex = 0;
+    private float numTreesGrown = 0f;
     
     private void Awake()
     {
@@ -55,7 +56,9 @@ public class AudioController : MonoBehaviour
         //Sproing
         treeSource.Stop();
         treeSource.clip = treeClip;
+        treeSource.pitch += (numTreesGrown * 0.1f);
         treeSource.Play();
+        numTreesGrown++;
     }
 
     public void PlayUnitDied(Vector3 unitPosition)

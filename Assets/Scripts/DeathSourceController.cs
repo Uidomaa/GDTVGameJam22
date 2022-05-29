@@ -19,7 +19,7 @@ public class DeathSourceController : Spawner
     {
         GameManager.Instance.RegisterDeathSource(this);
         col = GetComponent<SphereCollider>();
-        // UpdateDeathRadius();
+        UpdateDeathRadius();
         //Debug
         StartCoroutine(SpawnUnits());
     }
@@ -45,7 +45,7 @@ public class DeathSourceController : Spawner
         vCam.Priority = 0;
     }
 
-    private void ShrinkDeathRadius(float shrinkAmount = 0.5f)
+    private void ShrinkDeathRadius(float shrinkAmount = 1f)
     {
         deathRadius -= shrinkAmount;
         UpdateDeathRadius();

@@ -11,6 +11,7 @@ public class TreeController : Spawner
     [SerializeField] private int treeID = 0;
     [SerializeField] private float tileRadius = 1.5f;
     [SerializeField] private LayerMask tileLayer;
+    [SerializeField] private Transform treeTransform;
     [SerializeField] private CinemachineVirtualCamera virtualCam;
     [SerializeField] private CinemachineImpulseSource impulseSource;
     [SerializeField] private AudioSource treeAudioSource;
@@ -25,7 +26,7 @@ public class TreeController : Spawner
     private void Start()
     {
         GetSurroundingTiles();
-        transform.localScale = Vector3.zero;
+        treeTransform.localScale = Vector3.zero;
     }
 
     private void GetSurroundingTiles()
@@ -62,10 +63,10 @@ public class TreeController : Spawner
     {
         hasGrown = true;
         AudioController.Instance.PlayTreeGrow1(treeAudioSource, growClip);
-        Vector3 initialScale = new Vector3(0.1f, 1f, 0.1f);
+        Vector3 initialScale = new Vector3(0.05f, 0.05f, 1f);
         Sequence mySequence = DOTween.Sequence();
-        mySequence.Append(transform.DOScale(initialScale, 3f).SetEase(Ease.OutExpo).OnComplete(GrowPhase2));
-        mySequence.Append(transform.DOScale(Vector3.one, 0.3f)).OnComplete(HasGrown);
+        mySequence.Append(treeTransform.DOScale(initialScale, 3f).SetEase(Ease.OutExpo).OnComplete(GrowPhase2));
+        mySequence.Append(treeTransform.DOScale(Vector3.one, 0.3f)).OnComplete(HasGrown);
         //Camera
         virtualCam.Priority = 10;
     }

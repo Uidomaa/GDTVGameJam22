@@ -41,7 +41,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Color_Intensity: 2
+    - _Color_Intensity: 15
     - _Metallic: 0
     - _Normal_Strength: 0.2
     - _QueueControl: 0
