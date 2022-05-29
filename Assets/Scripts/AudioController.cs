@@ -15,6 +15,8 @@ public class AudioController : MonoBehaviour
     [SerializeField] private AudioClip[] deathClips;
     [SerializeField] private AudioSource[] deathSources;
     [SerializeField] private AudioSource torchSource;
+    [SerializeField] private AudioSource outroRumbleSource;
+    [SerializeField] private AudioSource outroBoomSource;
     
     int paperFlipIndex = 0;
     int deathIndex = 0;

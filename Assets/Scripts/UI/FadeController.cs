@@ -8,6 +8,8 @@ public class FadeController : MonoBehaviour
 {
     [SerializeField] private bool shouldFadeInOnAwake = true;
     [SerializeField] private float fadeInTime = 1f;
+    [SerializeField] private GameObject blackImage;
+    [SerializeField] private GameObject whiteImage;
 
     private CanvasGroup canvasGroup;
     private Coroutine fadeCoroutine;
@@ -27,8 +29,11 @@ public class FadeController : MonoBehaviour
         }
     }
 
-    public IEnumerator FadeOverlay(bool isFadingIn, float totalFadeTime = 1f)
+    public IEnumerator FadeOverlay(bool isFadingIn, float totalFadeTime = 1f, bool useBlackScreen = true)
     {
+        blackImage.SetActive(useBlackScreen);
+        whiteImage.SetActive(!useBlackScreen);
+        
         float curAlpha = isFadingIn ? 1f : 0f;
         float curFadeTime = 0f;
 

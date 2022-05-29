@@ -29,6 +29,27 @@ public class TreeController : Spawner
         treeTransform.localScale = Vector3.zero;
     }
 
+#if UNITY_EDITOR
+    private void Update()
+    {
+        switch (treeID)
+        {
+            case 0:
+                if (Input.GetKeyDown(KeyCode.Alpha1)) { Grow(); }
+                break;
+            case 1:
+                if (Input.GetKeyDown(KeyCode.Alpha2)) { Grow(); }
+                break;
+            case 2:
+                if (Input.GetKeyDown(KeyCode.Alpha3)) { Grow(); }
+                break;
+            case 3:
+                if (Input.GetKeyDown(KeyCode.Alpha4)) { Grow(); }
+                break;
+        }
+    }
+#endif
+    
     private void GetSurroundingTiles()
     {
         //Get tiles around tree to determine how many are required in order to grow

@@ -57,12 +57,27 @@ public class PlayerController : MonoBehaviour
             var newPosition = new Vector3(horizontal * mult, 0f, vertical * mult);
             rb.AddRelativeForce(newPosition, ForceMode.Acceleration);
         }
+#if UNITY_EDITOR
+        //Move faster for testing
+        var newMaxSpeed = maxSpeed * maxSpeed;
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            newMaxSpeed *= 6f;
+        }
+        if (rb.velocity.sqrMagnitude > (newMaxSpeed))
+        {
+            var newMove = rb.velocity.normalized;
+            newMove *= maxSpeed;
+            rb.velocity = newMove;
+        }
+#else
         if (rb.velocity.sqrMagnitude > (maxSpeed * maxSpeed))
         {
             var newMove = rb.velocity.normalized;
             newMove *= maxSpeed;
             rb.velocity = newMove;
         }
+#endif
         horizontal = 0f;
         vertical = 0f;
     }
@@ -72,18 +87,6 @@ public class PlayerController : MonoBehaviour
         var deathSourceDistance = Mathf.Max(0.5f, Vector3.Distance(transform.position, deathSourcePosition));
         virtualCamNoiseComponent.m_AmplitudeGain = 0.5f / deathSourceDistance;
     }
-
-    // private void OnTriggerEnter(Collider other)
-    // {
-    //     if (other.CompareTag("Enemy"))
-    //     {
-    //         var enemyUnit = other.GetComponent<SpawnedUnitController>();
-    //         if (enemyUnit != null)
-    //         {
-    //             enemyUnit.Die();
-    //         }
-    //     }
-    // }
 
     private void OnTriggerStay(Collider other)
     {

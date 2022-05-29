@@ -9,10 +9,12 @@ public class Spawner : MonoBehaviour
     [SerializeField] private GameObject spawnUnitPrefab;
     
     protected List<SpawnedUnitController> spawnedUnits = new List<SpawnedUnitController>();
+    protected bool shouldSpawnUnits;
     
     protected IEnumerator SpawnUnits()
     {
-        while (enabled)
+        shouldSpawnUnits = true;
+        while (shouldSpawnUnits)
         {
             if (spawnedUnits.Count < maxUnits)
             {
