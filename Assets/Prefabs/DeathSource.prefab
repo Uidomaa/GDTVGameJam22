@@ -203,7 +203,6 @@ GameObject:
   - component: {fileID: 797335087494487967}
   - component: {fileID: 797335087494487965}
   - component: {fileID: 797335087494487966}
-  - component: {fileID: 3811008829727840438}
   m_Layer: 0
   m_Name: DeathSource
   m_TagString: DeathSource
@@ -284,60 +283,6 @@ MonoBehaviour:
   - {fileID: 7188060923428317985}
   - {fileID: 7188060922139698602}
   vCam: {fileID: 445674247}
-  impulseSource: {fileID: 3811008829727840438}
---- !u!114 &3811008829727840438
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 797335087494487937}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ImpulseDefinition:
-    m_ImpulseChannel: 1
-    m_ImpulseShape: 3
-    m_CustomImpulseShape:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    m_ImpulseDuration: 0.2
-    m_ImpulseType: 0
-    m_DissipationRate: 0.25
-    m_RawSignal: {fileID: 0}
-    m_AmplitudeGain: 1
-    m_FrequencyGain: 1
-    m_RepeatMode: 0
-    m_Randomize: 1
-    m_TimeEnvelope:
-      m_AttackShape:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 4
-      m_DecayShape:
-        serializedVersion: 2
-        m_Curve: []
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 4
-      m_AttackTime: 0
-      m_SustainTime: 0.2
-      m_DecayTime: 0.7
-      m_ScaleWithImpact: 1
-      m_HoldForever: 0
-    m_ImpactRadius: 100
-    m_DirectionMode: 0
-    m_DissipationMode: 2
-    m_DissipationDistance: 100
-    m_PropagationSpeed: 343
-  m_DefaultVelocity: {x: 0, y: 0, z: 1}
 --- !u!1 &797335087723825200
 GameObject:
   m_ObjectHideFlags: 0
@@ -5222,7 +5167,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: 32b3362ab9e57984aa6475f89ec7c386, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
-  m_Pitch: -0.01
+  m_Pitch: 0.01
   Loop: 1
   Mute: 0
   Spatialize: 0

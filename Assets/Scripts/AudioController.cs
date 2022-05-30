@@ -10,6 +10,8 @@ public class AudioController : MonoBehaviour
     public static AudioController Instance = null;
 
     [SerializeField] private AudioSource bgmSource;
+    
+    [Header("GAME")]
     [SerializeField] private AudioClip[] paperFlipClips;
     [SerializeField] private AudioSource[] paperFlipSources;
     [SerializeField] private AudioClip[] deathClips;
@@ -17,6 +19,10 @@ public class AudioController : MonoBehaviour
     [SerializeField] private AudioSource torchSource;
     [SerializeField] private AudioSource outroRumbleSource;
     [SerializeField] private AudioSource outroBoomSource;
+    
+    [Header("MENU")]
+    [SerializeField] private AudioSource buttonPressSource;
+    [SerializeField] private AudioSource menuRumbleSource;
     
     int paperFlipIndex = 0;
     int deathIndex = 0;
@@ -63,6 +69,16 @@ public class AudioController : MonoBehaviour
         numTreesGrown++;
     }
 
+    public void IncreaseBGM()
+    {
+        bgmSource.volume += 0.1f;
+    }
+
+    public void StopBGM(float fadeOutTime)
+    {
+        bgmSource.DOFade(0f, fadeOutTime).SetEase(Ease.InSine).OnComplete(bgmSource.Stop);
+    }
+
     public void PlayUnitDied(Vector3 unitPosition)
     {
         PlayAllDeathClips(unitPosition);
@@ -87,4 +103,42 @@ public class AudioController : MonoBehaviour
     {
         torchSource.Play();
     }
+
+    public void PlayRumble(float fadeInTime)
+    {
+        outroRumbleSource.volume = 0f;
+        outroRumbleSource.DOFade(1f, fadeInTime).SetEase(Ease.Linear);
+        outroRumbleSource.Play();
+    }
+    
+    public void StopRumble(float fadeOutTime)
+    {
+        outroRumbleSource.DOFade(0f, fadeOutTime).SetEase(Ease.Linear).OnComplete(outroRumbleSource.Stop);
+    }
+
+    public void FadeRumblePitch(float destinationPitch, float fadeTime)
+    {
+        outroRumbleSource.DOPitch(destinationPitch, fadeTime);
+    }
+    
+    public void PlayOutroBoom()
+    {
+        outroBoomSource.Play();
+    }
+
+    #region Menu
+
+    public void PlayButtonPress()
+    {
+        buttonPressSource.pitch = Random.Range(0.9f, 1f);
+        buttonPressSource.Play();
+    }
+
+    public void FadeMenuRumble(float fadeOutTime)
+    {
+        if (menuRumbleSource == null) { return; }
+        
+        menuRumbleSource.DOFade(0f, fadeOutTime).SetEase(Ease.InSine).OnComplete(menuRumbleSource.Stop);
+    }
+    #endregion
 }

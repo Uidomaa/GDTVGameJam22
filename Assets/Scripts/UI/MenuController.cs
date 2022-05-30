@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 
 public class MenuController : MonoBehaviour
 {
+    [SerializeField] private bool isHomeScene = true;
     [SerializeField] private FadeController fadeController;
     [SerializeField] private CanvasGroup titleCanvasGroup;
     [SerializeField] private InstructionsController instructions;
@@ -15,12 +16,18 @@ public class MenuController : MonoBehaviour
 
     private void Awake()
     {
-        deathSourceVirtualCam.Priority = 0;
+        if (deathSourceVirtualCam != null)
+        {
+            deathSourceVirtualCam.Priority = 0;
+        }
+        if (!isHomeScene)
+        {
+            instructions.Begin(this, 2f);
+        }
     }
 
     public void BeginPressed()
     {
-        Debug.Log("Begin pressed!");
         // Enable DeathSource Virtual Cam
         deathSourceVirtualCam.Priority = 10;
         // Fade out title
@@ -33,8 +40,9 @@ public class MenuController : MonoBehaviour
 
     public IEnumerator LoadGameScene()
     {
-        //TODO Fade audio if applicable
+        AudioController.Instance.StopBGM(2f);
+        AudioController.Instance.FadeMenuRumble(2f);
         yield return StartCoroutine(fadeController.FadeOverlay(false, 2f));
-        SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene(isHomeScene ? "GameScene" : "HomeMenu");
     }
 }

@@ -7,6 +7,7 @@ using UnityEngine;
 public class FadeController : MonoBehaviour
 {
     [SerializeField] private bool shouldFadeInOnAwake = true;
+    [SerializeField] private bool shouldFadeInOnBlack = true;
     [SerializeField] private float fadeInTime = 1f;
     [SerializeField] private GameObject blackImage;
     [SerializeField] private GameObject whiteImage;
@@ -21,7 +22,7 @@ public class FadeController : MonoBehaviour
         if (shouldFadeInOnAwake)
         {
             if (fadeCoroutine != null) { StopCoroutine(fadeCoroutine); }
-            fadeCoroutine = StartCoroutine(FadeOverlay(true, fadeInTime));
+            fadeCoroutine = StartCoroutine(FadeOverlay(true, fadeInTime, shouldFadeInOnBlack));
         }
         else
         {

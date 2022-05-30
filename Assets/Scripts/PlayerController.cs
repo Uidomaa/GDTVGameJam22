@@ -37,7 +37,10 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Move();
+        if (GameManager.Instance.IsInPlayingState())
+        {
+            Move();
+        }
     }
 
     private void Rotate()

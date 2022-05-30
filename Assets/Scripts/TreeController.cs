@@ -96,6 +96,7 @@ public class TreeController : Spawner
     {
         impulseSource.GenerateImpulse(0.3f);
         AudioController.Instance.PlayTreeGrow2(treeAudioSource, sproingClip);
+        AudioController.Instance.IncreaseBGM();
     }
 
     private void HasGrown()

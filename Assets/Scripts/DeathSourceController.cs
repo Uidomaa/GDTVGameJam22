@@ -12,7 +12,6 @@ public class DeathSourceController : Spawner
     [SerializeField] private ParticleSystem boundsPS;
     [SerializeField] private TorchController[] torches;
     [SerializeField] private CinemachineVirtualCamera vCam;
-    [SerializeField] private CinemachineImpulseSource impulseSource;
 
     private SphereCollider col;
     private int torchesLit = 0;
@@ -39,6 +38,7 @@ public class DeathSourceController : Spawner
     {
         // Move camera here to watch it change state
         vCam.Priority = 10;
+        AudioController.Instance.PlayRumble(1f);
         yield return new WaitForSeconds(1.5f);
         AudioController.Instance.PlayTorchLit();
         ShrinkDeathRadius();
@@ -51,8 +51,9 @@ public class DeathSourceController : Spawner
             StartCoroutine(DeathSourceDefeated());
             yield break;
         }
-        
         yield return new WaitForSeconds(2f);
+        // Return to player
+        AudioController.Instance.StopRumble(1f);
         vCam.Priority = 0;
     }
 
@@ -75,6 +76,7 @@ public class DeathSourceController : Spawner
 
     private IEnumerator DeathSourceDefeated()
     {
+        GameManager.Instance.SetGameState(GameManager.GameState.Outro);
         // Increase shake
         virtualCamNoiseComponent.m_AmplitudeGain *= 2f;
         virtualCamNoiseComponent.m_FrequencyGain *= 2f;
@@ -87,13 +89,14 @@ public class DeathSourceController : Spawner
             var spawnedUnit = spawnedUnits[index];
             spawnedUnit.Die();
         }
+        AudioController.Instance.FadeRumblePitch(-0.5f, 3f);
+        AudioController.Instance.StopBGM(3f);
         yield return new WaitForSeconds(3f);
+        AudioController.Instance.StopRumble(0f);
         // Stop noise
         virtualCamNoiseComponent.m_AmplitudeGain *= 0f;
         virtualCamNoiseComponent.m_FrequencyGain *= 0f;
-        // Impulse
-        impulseSource.GenerateImpulse(0.3f);
-        
+
         GameManager.Instance.TriggerWin();
     }
 }

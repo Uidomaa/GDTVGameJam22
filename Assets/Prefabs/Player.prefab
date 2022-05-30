@@ -4947,7 +4947,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e12f88753aa89df41b2bcd43cf2e23be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  acceleration: 500
+  acceleration: 800
   maxSpeed: 2
   rotationSpeed: 400
   mesh: {fileID: 4195717763750651442}
