@@ -80,8 +80,10 @@ public class DeathSourceController : Spawner
         // Increase shake
         virtualCamNoiseComponent.m_AmplitudeGain *= 2f;
         virtualCamNoiseComponent.m_FrequencyGain *= 2f;
-        // Shrink death radius to 0
+        // Stop death particles
         ShrinkDeathRadius(deathRadius);
+        fieldPS.Stop();
+        boundsPS.Stop();
         // Kill all enemies
         shouldSpawnUnits = false;
         for (var index = spawnedUnits.Count - 1; index >= 0; index--)

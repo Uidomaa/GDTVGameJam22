@@ -15,9 +15,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private FadeController fadeController;
     [SerializeField] private CinemachineImpulseSource impulseSource;
     [SerializeField] private ParticleSystem lifePS;
+    [SerializeField] private GameObject pauseCanvas;
     
     private DeathSourceController deathSource;
     private GameState gameState = GameState.Playing;
+    private bool isPaused = false;
     
     public enum GameState
     {
@@ -30,6 +32,19 @@ public class GameManager : MonoBehaviour
         Instance = this;
         sunlight.intensity = 1f;
         lifeBall.localScale = Vector3.zero;
+        SetPauseCanvas(false);
+    }
+
+    private void Update()
+    {
+        if (gameState == GameState.Playing)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Pause) || Input.GetKeyDown(KeyCode.Tab) ||
+                Input.GetKeyDown(KeyCode.Space))
+            {
+                TogglePauseCanvas();
+            }
+        }
     }
 
     public bool IsInPlayingState()
@@ -45,6 +60,17 @@ public class GameManager : MonoBehaviour
     public void SetGameState(GameState newGameState)
     {
         gameState = newGameState;
+    }
+
+    private void TogglePauseCanvas()
+    {
+        isPaused = !isPaused;
+        SetPauseCanvas(isPaused);
+    }
+
+    private void SetPauseCanvas(bool newPauseState)
+    {
+        pauseCanvas.SetActive(newPauseState);
     }
     
     public void RegisterDeathSource(DeathSourceController newDS)
@@ -65,6 +91,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator PlayOutroSequence()
     {
+        SetPauseCanvas(false);
         // Impulse
         AudioController.Instance.PlayOutroBoom();
         lifePS.Play();
@@ -81,5 +108,10 @@ public class GameManager : MonoBehaviour
     private void LoadWinScreen()
     {
         SceneManager.LoadScene("WinScene");
+    }
+    
+    public void QuitGame()
+    {
+        SceneManager.LoadScene("HomeMenu");
     }
 }
