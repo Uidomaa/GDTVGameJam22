@@ -13,6 +13,7 @@ public class MenuController : MonoBehaviour
     [SerializeField] private CanvasGroup titleCanvasGroup;
     [SerializeField] private InstructionsController instructions;
     [SerializeField] private CinemachineVirtualCamera deathSourceVirtualCam;
+    [SerializeField] private GameObject exitButton;
 
     private void Awake()
     {
@@ -24,6 +25,12 @@ public class MenuController : MonoBehaviour
         {
             instructions.Begin(this, 2f);
         }
+#if !UNITY_STANDALONE
+        if (exitButton != null)
+        {
+            exitButton.SetActive(false);
+        }
+#endif
     }
 
     public void BeginPressed()
@@ -44,5 +51,23 @@ public class MenuController : MonoBehaviour
         AudioController.Instance.FadeMenuRumble(2f);
         yield return StartCoroutine(fadeController.FadeOverlay(false, 2f));
         SceneManager.LoadScene(isHomeScene ? "GameScene" : "HomeMenu");
+    }
+
+    public void ExitPressed()
+    {
+        // Fade out title
+        titleCanvasGroup.interactable = false;
+        titleCanvasGroup.blocksRaycasts = false;
+        titleCanvasGroup.DOFade(0f, 0.1f);
+        StartCoroutine(QuitGame());
+    }
+
+    private IEnumerator QuitGame()
+    {
+        var fadeOutTime = 1f;
+        AudioController.Instance.StopBGM(fadeOutTime);
+        AudioController.Instance.FadeMenuRumble(fadeOutTime);
+        yield return StartCoroutine(fadeController.FadeOverlay(false, fadeOutTime));
+        Application.Quit();
     }
 }
