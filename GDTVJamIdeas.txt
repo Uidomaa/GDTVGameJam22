@@ -1,0 +1,11 @@
+A creature that feeds on dead creatures
+A Phoenix that has just been reborn
+A virus that can only spread when it kills its host
+
+A dead planet/area that is brought to life wherever the player moves
+- Origami style
+- Ground/plants/trees morph between dead/alive
+- Characters are birds
+- Trees brought to life spawn birds that also leave small life trails
+- Death source also spawns death birds that leave small death trails
+- Goal is to bring back enough life to defeat the death source
